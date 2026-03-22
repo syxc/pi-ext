@@ -1,82 +1,28 @@
-# File Sentry
+# pi-ext
 
-Pi coding agent extension for file operation permissions.
+Collection of pi coding agent extensions.
 
-> Works best with [pi-amplike](https://github.com/pasky/pi-amplike) — complements its Bash permission system with Read/Edit/Write controls.
+## Extensions
 
-## Install
+### file-sentry
 
-Copy `file-sentry.ts` to your extensions directory and register it in `~/.pi/agent/settings.json`:
+File operation permission system for Read/Write/Edit tools.
 
-```json
-{
-  "extensions": ["~/.pi/agent/extensions/file-sentry.ts"]
-}
-```
+> Works best with [pi-amplike](https://github.com/pasky/pi-amplike) — complements its Bash permission system.
 
-## Usage
-
+**Usage**:
 ```bash
-/file-sentry yolo      # Allow all operations without prompts
+/file-sentry yolo      # Allow all operations
 /file-sentry enable    # Enable permission checks
-/file-sentry status    # Show current mode and rule count
+/file-sentry status    # Show current mode
 ```
 
-## Configure Rules
-
-Add rules to `~/.config/amp/settings.json`:
-
+**Install**: Copy `extensions/file-sentry.ts` and add to `~/.pi/agent/settings.json`:
 ```json
-{
-  "amp.permissions": [
-    {
-      "tool": "Bash",
-      "matches": { "cmd": "/^rm -rf \\//" },
-      "action": "deny"
-    },
-    {
-      "tool": "Read",
-      "matches": { "path": "~/.ssh/**" },
-      "action": "ask"
-    },
-    {
-      "tool": "Edit",
-      "matches": { "path": "**/*.env" },
-      "action": "ask"
-    }
-  ]
-}
+{ "extensions": ["~/.pi/agent/extensions/file-sentry.ts"] }
 ```
 
-### Rule Format
-
-```typescript
-{
-  tool: "Bash" | "Read" | "Edit" | "Write" | "*",
-  matches: { 
-    cmd?: string | string[]   // For Bash tool
-    path?: string | string[]  // For Read/Edit/Write tools
-  },
-  action: "allow" | "ask" | "deny"
-}
-```
-
-### Pattern Matching
-
-- **Exact**: `"/etc/passwd"`
-- **Glob**: `"**/*.ts"`, `"~/.config/**"`
-- **Regex**: `"/^rm -rf \\/$/"` (wrapped in slashes)
-- **Multiple**: `["**/*.secret", "**/private/**"]`
-
-Rules are evaluated top-to-bottom. First match wins.
-
-## State
-
-Mode is persisted to `~/.pi/agent/file-sentry.json`:
-
-```json
-{ "mode": "enabled" }
-```
+See [extensions/file-sentry.ts](extensions/file-sentry.ts) for full docs.
 
 ## License
 
