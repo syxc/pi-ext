@@ -1,6 +1,6 @@
 # pi-ext
 
-Collection of pi coding agent extensions.
+Collection of extensions for [pi coding agent](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent).
 
 ## Extensions
 
